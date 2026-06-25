@@ -68,6 +68,7 @@ sudo apt install python3-tk
 
 - Linux `SocketCAN` を使用
 - デフォルトチャネル: `can0`
+- 動作確認に使用した CAN FD モジュール: [スイッチサイエンス TCAN3413搭載 CANFDトランシーバーモジュール（3.3V対応）](https://www.switch-science.com/products/11004)
 
 ### USB serial
 
