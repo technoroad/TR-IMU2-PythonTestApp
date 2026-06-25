@@ -146,18 +146,18 @@ python imu_platform2_usbserial_cube_viewer.py --port /dev/ttyACM0
   - 使用する SocketCAN チャネル。省略時は `can0`
 - `--no-setup-link`
   - 自動の `ip link` 設定を行わず、既存の CAN 設定をそのまま使う
-- `--response-timeout 5.0`
+- `--response-timeout 3.0`
   - 応答待ちタイムアウト
-- `--response-retries 2`
+- `--response-retries 5`
   - タイムアウト時の再送回数
 
 ### USB serial 版
 
 - `--port COM3`
   - 使用する COM / TTY
-- `--response-timeout 5.0`
+- `--response-timeout 3.0`
   - 応答待ちタイムアウト
-- `--response-retries 2`
+- `--response-retries 5`
   - タイムアウト時の再送回数
 
 ### 3D ビューア共通

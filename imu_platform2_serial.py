@@ -74,13 +74,13 @@ def add_serial_common_arguments(parser: argparse.ArgumentParser) -> None:
     parser.add_argument(
         "--response-timeout",
         type=float,
-        default=5.0,
+        default=3.0,
         help="Timeout in seconds per attempt while waiting for a specific response.",
     )
     parser.add_argument(
         "--response-retries",
         type=int,
-        default=2,
+        default=5,
         help="Additional retries after a response timeout.",
     )
     parser.add_argument(
