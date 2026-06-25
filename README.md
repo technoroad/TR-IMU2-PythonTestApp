@@ -1,4 +1,4 @@
-# IMU Platform2 Python Tools
+# IMU Platform2 Python テストアプリ
 
 このリポジトリには、`IMU Platform2` の通信用 Python ツールが入っています。
 
