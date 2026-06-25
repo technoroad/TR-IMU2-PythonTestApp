@@ -171,5 +171,4 @@ python imu_platform2_usbserial_cube_viewer.py --port /dev/ttyACM0
 - 下部に `imu_counter` と四元数を表示します
 - USB serial 版は `pyserial` のポート名をそのまま `--port` に渡してください
 - 直接 UART 配線の動作は前提にせず、`ttyACM0` や `COMx` の USB serial を使用してください
-- `imu_platform2_uart_*.py` は互換のため残していますが、以後は `imu_platform2_usbserial_*.py` を使用してください
-- CAN FD 版は Jetson / Linux 前提です
+- CAN FD 版は Jetson Orin Nano / Linux の環境のみで動作確認済みです
