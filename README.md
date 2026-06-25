@@ -47,20 +47,11 @@ pip install python-can pyserial
   - CAN FD 版で使用
 - `pyserial`
   - USB serial 版で使用
-
-### tkinter
-
-3D ビューアを使う場合は `tkinter` が必要です。
-
-#### Windows 11
-
-公式 Python では通常そのまま使えます。
-
-#### Ubuntu / Jetson Linux
-
-```bash
-sudo apt install python3-tk
-```
+- `tkinter`
+  - 3D ビューアで使用
+  - `pip install` では追加しません
+  - Windows 11 では公式 Python に通常同梱されています
+  - Ubuntu / Jetson Linux では `sudo apt install python3-tk` で追加します
 
 ## 通信仕様
 

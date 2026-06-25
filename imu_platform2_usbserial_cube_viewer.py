@@ -43,7 +43,7 @@ def main() -> int:
 
     if tk is None:
         print(
-            "[ERR] tkinter is required. Install it with: sudo apt install python3-tk",
+            "[ERR] tkinter is required. On Windows, install the official Python with Tcl/Tk support. On Ubuntu/Jetson, run: sudo apt install python3-tk",
             file=sys.stderr,
         )
         print(f"[ERR] Import detail: {TK_IMPORT_ERROR}", file=sys.stderr)
