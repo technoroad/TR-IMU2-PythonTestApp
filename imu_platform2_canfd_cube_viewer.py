@@ -51,6 +51,9 @@ def main() -> int:
         print(f"[ERR] Import detail: {TK_IMPORT_ERROR}", file=sys.stderr)
         return 1
 
+    if args.response_timeout < 0.0:
+        print("--response-timeout must be 0 or larger.", file=sys.stderr)
+        return 2
     if args.response_retries < 0:
         print("--response-retries must be 0 or larger.", file=sys.stderr)
         return 2
@@ -100,6 +103,19 @@ def main() -> int:
         return 1
     if drained > 0:
         print(f"[INFO] Discarded {drained} pending frame(s) before start.")
+
+    def shutdown_link(*, send_stop_command: bool) -> None:
+        if send_stop_command and not args.no_stop_on_exit:
+            try:
+                link.send_command(CMD_STOP_PERIODIC)
+                link.drain_pending_frames(200)
+            except can.CanError as exc:
+                print(f"[WARN] Failed to send stop command: {exc}", file=sys.stderr)
+
+        try:
+            link.shutdown()
+        except Exception as exc:  # pragma: no cover - defensive cleanup
+            print(f"[WARN] Bus shutdown failed: {exc}", file=sys.stderr)
 
     initial_motion_frame: Optional[MotionFrame] = None
     viewer: Optional[CubeViewer] = None
@@ -162,10 +178,7 @@ def main() -> int:
     except can.CanError as exc:
         print(f"[ERR] CAN error while starting viewer: {exc}", file=sys.stderr)
         print_can_error_hints(args, exc)
-        try:
-            link.shutdown()
-        except Exception:
-            pass
+        shutdown_link(send_stop_command=True)
         return 1
 
     def send_reset_command() -> None:
@@ -200,10 +213,7 @@ def main() -> int:
             f"[HINT] Example: python {__file__.split('/')[-1]} --channel {args.channel}",
             file=sys.stderr,
         )
-        try:
-            link.shutdown()
-        except Exception:
-            pass
+        shutdown_link(send_stop_command=True)
         return 1
     if initial_motion_frame is not None:
         viewer.apply_motion_frame(initial_motion_frame)
@@ -219,18 +229,7 @@ def main() -> int:
     try:
         viewer.run()
     finally:
-        if not args.no_stop_on_exit:
-            try:
-                link.send_command(CMD_STOP_PERIODIC)
-                link.drain_pending_frames(200)
-            except can.CanError as exc:
-                print(f"[WARN] Failed to send stop command: {exc}", file=sys.stderr)
-
-        try:
-            link.shutdown()
-        except Exception as exc:  # pragma: no cover - defensive cleanup
-            print(f"[WARN] Bus shutdown failed: {exc}", file=sys.stderr)
-
+        shutdown_link(send_stop_command=True)
         signal.signal(signal.SIGINT, previous_sigint)
         signal.signal(signal.SIGTERM, previous_sigterm)
 

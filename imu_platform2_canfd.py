@@ -332,10 +332,13 @@ class CanFdLink:
         response_validator: Optional[ResponseValidator] = None,
         background_handler: Optional[MessageHandler] = None,
     ) -> Optional[can.Message]:
-        deadline = time.monotonic() + timeout_s
-        while time.monotonic() < deadline:
+        deadline = time.monotonic() + max(0.0, timeout_s)
+        allow_nonblocking_probe = timeout_s <= 0.0
+        while allow_nonblocking_probe or time.monotonic() < deadline:
             remaining = max(0.0, deadline - time.monotonic())
-            message = self.bus.recv(timeout=min(0.1, remaining))
+            recv_timeout = 0.0 if allow_nonblocking_probe else min(0.1, remaining)
+            message = self.bus.recv(timeout=recv_timeout)
+            allow_nonblocking_probe = False
             if message is None:
                 continue
             if not is_fd_frame(message):

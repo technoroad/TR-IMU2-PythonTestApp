@@ -364,10 +364,13 @@ class SerialLink:
         response_validator: Optional[ResponseValidator] = None,
         background_handler: Optional[PacketHandler] = None,
     ) -> Optional[SerialPacket]:
-        deadline = time.monotonic() + timeout_s
-        while time.monotonic() < deadline:
+        deadline = time.monotonic() + max(0.0, timeout_s)
+        allow_nonblocking_probe = timeout_s <= 0.0
+        while allow_nonblocking_probe or time.monotonic() < deadline:
             remaining = max(0.0, deadline - time.monotonic())
-            packet = self.recv_packet(min(0.1, remaining))
+            recv_timeout = 0.0 if allow_nonblocking_probe else min(0.1, remaining)
+            packet = self.recv_packet(recv_timeout)
+            allow_nonblocking_probe = False
             if packet is None:
                 continue
             if response_matches(packet.response_id):

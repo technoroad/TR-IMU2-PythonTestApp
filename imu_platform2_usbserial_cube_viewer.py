@@ -54,6 +54,9 @@ def main() -> int:
         print(f"[ERR] Import detail: {SERIAL_IMPORT_ERROR}", file=sys.stderr)
         return 1
 
+    if args.response_timeout < 0.0:
+        print("--response-timeout must be 0 or larger.", file=sys.stderr)
+        return 2
     if args.response_retries < 0:
         print("--response-retries must be 0 or larger.", file=sys.stderr)
         return 2
@@ -77,6 +80,19 @@ def main() -> int:
     drained = link.drain_pending_frames(args.startup_drain_ms)
     if drained > 0:
         print(f"[INFO] Discarded {drained} pending frame(s) before start.")
+
+    def shutdown_link(*, send_stop_command: bool) -> None:
+        if send_stop_command and not args.no_stop_on_exit:
+            try:
+                link.send_command(CMD_STOP_PERIODIC)
+                link.drain_pending_frames(200)
+            except Exception as exc:
+                print(f"[WARN] Failed to send stop command: {exc}", file=sys.stderr)
+
+        try:
+            link.shutdown()
+        except Exception as exc:  # pragma: no cover - defensive cleanup
+            print(f"[WARN] Serial shutdown failed: {exc}", file=sys.stderr)
 
     initial_motion_frame: Optional[MotionFrame] = None
     latest_motion_frame: Optional[MotionFrame] = None
@@ -139,10 +155,7 @@ def main() -> int:
         print("[INFO] Starting USB serial cube viewer. Close the window or press Ctrl+C to stop.")
     except Exception as exc:
         print(f"[ERR] Serial error while starting viewer: {exc}", file=sys.stderr)
-        try:
-            link.shutdown()
-        except Exception:
-            pass
+        shutdown_link(send_stop_command=True)
         return 1
 
     def send_reset_command() -> None:
@@ -160,14 +173,19 @@ def main() -> int:
         if frame is not None:
             viewer.apply_motion_frame(frame)
 
-    viewer = CubeViewer(
-        width=args.width,
-        height=args.height,
-        fps=args.fps,
-        poll_callback=apply_pending_motion,
-        reset_callback=send_reset_command,
-        window_title="IMU Platform2 USB Serial Cube Viewer",
-    )
+    try:
+        viewer = CubeViewer(
+            width=args.width,
+            height=args.height,
+            fps=args.fps,
+            poll_callback=apply_pending_motion,
+            reset_callback=send_reset_command,
+            window_title="IMU Platform2 USB Serial Cube Viewer",
+        )
+    except tk.TclError as exc:
+        print(f"[ERR] Failed to open viewer window: {exc}", file=sys.stderr)
+        shutdown_link(send_stop_command=True)
+        return 1
     if initial_motion_frame is not None:
         viewer.apply_motion_frame(initial_motion_frame)
 
@@ -203,19 +221,7 @@ def main() -> int:
     finally:
         reader_stop_event.set()
         reader_thread.join(timeout=0.2)
-
-        if not args.no_stop_on_exit:
-            try:
-                link.send_command(CMD_STOP_PERIODIC)
-                link.drain_pending_frames(200)
-            except Exception as exc:
-                print(f"[WARN] Failed to send stop command: {exc}", file=sys.stderr)
-
-        try:
-            link.shutdown()
-        except Exception as exc:  # pragma: no cover - defensive cleanup
-            print(f"[WARN] Serial shutdown failed: {exc}", file=sys.stderr)
-
+        shutdown_link(send_stop_command=True)
         signal.signal(signal.SIGINT, previous_sigint)
         signal.signal(signal.SIGTERM, previous_sigterm)
 

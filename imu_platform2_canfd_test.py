@@ -109,6 +109,9 @@ def main() -> int:
     if args.print_every < 1:
         print("--print-every must be 1 or larger.", file=sys.stderr)
         return 2
+    if args.response_timeout < 0.0:
+        print("--response-timeout must be 0 or larger.", file=sys.stderr)
+        return 2
     if args.response_retries < 0:
         print("--response-retries must be 0 or larger.", file=sys.stderr)
         return 2
