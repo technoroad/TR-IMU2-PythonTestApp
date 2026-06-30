@@ -38,30 +38,28 @@ USB 仮想 COM を `ttyACM0` や `COMx` として開くシリアル実装を含�
 ## 必要なハードウェア
 
 ### USB serial で動作させる場合
+- `IMU_Platform2` もしくは、`IMU16607`
+- 対応 IMU の評価ボード(`IMU16607`では不要)
+- `USB Type-C` ケーブル（付属品）
+- 上位 PC（`Windows 11` または Linux）
 
 ```mermaid
 graph TB
     PC["Win11 or Linux"] <-->|"USB"| DEVICE["IMU_Platform2 or IMU16607"]
 ```
 
-- `IMU_Platform2` もしくは、`IMU16607`
-- 対応 IMU の評価ボード(`IMU16607`では不要)
-- `USB Type-C` ケーブル（付属品）
-- 上位 PC（`Windows 11` または Linux）
-
 ### CAN FD で動作させる場合
+- `IMU_Platform2` （設定で `CAN FD` をオンにしておく）
+- 対応 IMU の評価ボード
+- `SocketCAN` 対応の Linux PC（Jetson Orin Nano など）
+- CAN FD モジュール: [スイッチサイエンス TCAN3413搭載 CANFDトランシーバーモジュール（3.3V対応）](https://www.switch-science.com/products/11004)
+- CAN FD の通信ケーブル **自作する必要あり**
 
 ```mermaid
 graph TB
     PC["SocketCAN 対応の Linux PC"] <-->|" "| MODULE["CAN FDモジュール"]
     MODULE <-->|" "| PLATFORM["IMU_Platform2"]
 ```
-
-- `IMU_Platform2` （設定で `CAN FD` をオンにしておく）
-- 対応 IMU の評価ボード
-- `SocketCAN` 対応の Linux PC（Jetson Orin Nano など）
-- CAN FD モジュール: [スイッチサイエンス TCAN3413搭載 CANFDトランシーバーモジュール（3.3V対応）](https://www.switch-science.com/products/11004)
-- CAN FD の通信ケーブル **自作する必要あり**
 
 ## 必要ライブラリ
 
