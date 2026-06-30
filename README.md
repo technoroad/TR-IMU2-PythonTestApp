@@ -40,7 +40,7 @@ USB 仮想 COM を `ttyACM0` や `COMx` として開くシリアル実装を含�
 ### USB serial で動作させる場合
 
 ```mermaid
-graph LR
+graph TB
     PC["Win11 or Linux"] <-->|"USB"| DEVICE["IMU_Platform2 or IMU16607"]
 ```
 
@@ -52,7 +52,7 @@ graph LR
 ### CAN FD で動作させる場合
 
 ```mermaid
-graph LR
+graph TB
     PC["SocketCAN 対応の Linux PC"] <-->|" "| MODULE["CAN FDモジュール"]
     MODULE <-->|" "| PLATFORM["IMU_Platform2"]
 ```
