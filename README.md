@@ -12,6 +12,7 @@ USB 仮想 COM を `ttyACM0` や `COMx` として開くシリアル実装を含�
 
 ![IMU_PlatformTool2の画面](.github/images/app1.png)
 
+---
 
 ## 対応スクリプト
 
