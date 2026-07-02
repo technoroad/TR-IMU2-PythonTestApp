@@ -8,6 +8,11 @@
 
 USB 仮想 COM を `ttyACM0` や `COMx` として開くシリアル実装を含みます。
 
+## 画面イメージ
+
+![IMU_PlatformTool2の画面](.github/images/app1.png)
+
+
 ## 対応スクリプト
 
 - `imu_platform2_canfd_test.py`
