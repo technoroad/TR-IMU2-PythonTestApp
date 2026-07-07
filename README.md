@@ -1,6 +1,6 @@
-# IMU Platform2 Python テストアプリ
+# TR-IMU基板 Python テストアプリ
 
-このリポジトリには、`IMU Platform2` の通信用 Python ツールが入っています。
+このリポジトリには、`TR-IMU Platform2`および `TR-IMU16607` の通信用 Python ツールが入っています。
 
 - `CAN FD` での確認用
 - `USB virtual COM` での確認用
@@ -10,7 +10,7 @@ USB 仮想 COM を `ttyACM0` や `COMx` として開くシリアル実装を含�
 
 ## 画面イメージ
 
-![IMU_PlatformTool2の画面](.github/images/app1.png)
+![TR-IMU基板の画面](.github/images/app1.png)
 
 ---
 
@@ -44,27 +44,27 @@ USB 仮想 COM を `ttyACM0` や `COMx` として開くシリアル実装を含�
 ## 必要なハードウェア
 
 ### USB serial で動作させる場合
-- `IMU_Platform2` もしくは、`IMU16607`
-- 対応 IMU の評価ボード(`IMU16607`では不要)
+- `TR-IMU Platform2` もしくは、`TR-IMU16607`
+- 対応 IMU の評価ボード(`TR-IMU16607`では不要)
 - `USB Type-C` ケーブル（付属品）
-- 上位 PC（`Windows 11` または Linux）
+- pythonが実行できる上位 PC（`Windows 11` または Linux）
 
 ```mermaid
 graph TB
-    PC["Win11 or Linux"] <-->|"USB"| DEVICE["IMU_Platform2 or IMU16607"]
+    PC["Win11 or Linux"] <-->|"USB"| DEVICE["TR-IMU Platform2 or TR-IMU16607"]
 ```
 
 ### CAN FD で動作させる場合
-- `IMU_Platform2` （設定で `CAN FD` をオンにしておく）
+- `TR-IMU Platform2` （設定で `CAN FD` をオンにしておく）
 - 対応 IMU の評価ボード
 - `SocketCAN` 対応の Linux PC（Jetson Orin Nano など）
-- CAN FD モジュール: [スイッチサイエンス TCAN3413搭載 CANFDトランシーバーモジュール（3.3V対応）](https://www.switch-science.com/products/11004)
+- CAN FD モジュールの例: [スイッチサイエンス TCAN3413搭載 CANFDトランシーバーモジュール（3.3V対応）](https://www.switch-science.com/products/11004)
 - CAN FD の通信ケーブル **自作する必要あり**
 
 ```mermaid
 graph TB
     PC["SocketCAN 対応の Linux PC"] <-->|" "| MODULE["CAN FDモジュール"]
-    MODULE <-->|" "| PLATFORM["IMU_Platform2"]
+    MODULE <-->|" "| PLATFORM["TR-IMU Platform2"]
 ```
 
 ## 必要ライブラリ
@@ -190,7 +190,7 @@ python imu_platform2_usbserial_cube_viewer.py --port /dev/ttyACM0
 
 ## 動作メモ
 
-- CAN FD を使用する場合、`imu_platform2` の設定で `CAN FD` をオンにしておく必要があります
+- CAN FD を使用する場合、`TR-IMU Platform2` の設定で `CAN FD` をオンにしておく必要があります
 - 画面クリックで `CMD_RESET_FILTER` を送信します
 - 下部に `imu_counter` と四元数を表示します
 - CAN FD 版は Jetson Orin Nano / Linux の環境のみで動作確認済みです
