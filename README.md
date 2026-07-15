@@ -16,13 +16,13 @@ USB 仮想 COM を `ttyACM0` や `COMx` として開くシリアル実装を含�
 
 ## 対応スクリプト
 
-- `imu_platform2_canfd_test.py`
+- `imu2_canfd_test.py`
   - CAN FD の受信確認用
-- `imu_platform2_canfd_cube_viewer.py`
+- `imu2_canfd_cube_viewer.py`
   - CAN FD の 3D ビューア
-- `imu_platform2_usbserial_test.py`
+- `imu2_usbserial_test.py`
   - USB serial の受信確認用
-- `imu_platform2_usbserial_cube_viewer.py`
+- `imu2_usbserial_cube_viewer.py`
   - USB serial の 3D ビューア
 
 ## 前提環境
@@ -109,25 +109,25 @@ pip install python-can pyserial
 ### 1. CAN FD の受信確認
 
 ```bash
-python imu_platform2_canfd_test.py
+python imu2_canfd_test.py
 ```
 
 CAN FD 版は起動時に自動で `ip link` 設定を行います。
 
 ```bash
-python imu_platform2_canfd_test.py
+python imu2_canfd_test.py
 ```
 
 ### 2. CAN FD の 3D ビューア
 
 ```bash
-python imu_platform2_canfd_cube_viewer.py
+python imu2_canfd_cube_viewer.py
 ```
 
 ビューアは通常ユーザーで起動してください。必要な `ip link` 設定だけが内部で `sudo` 実行されます。
 
 ```bash
-python imu_platform2_canfd_cube_viewer.py
+python imu2_canfd_cube_viewer.py
 ```
 
 `sudo python ...` で起動すると、`tkinter` が X11 / Display に接続できず失敗することがあります。
@@ -137,13 +137,13 @@ python imu_platform2_canfd_cube_viewer.py
 #### Windows 11
 
 ```bash
-python imu_platform2_usbserial_test.py --port COM3
+python imu2_usbserial_test.py --port COM3
 ```
 
 #### Jetson USB virtual COM
 
 ```bash
-python imu_platform2_usbserial_test.py --port /dev/ttyACM0
+python imu2_usbserial_test.py --port /dev/ttyACM0
 ```
 
 ### 4. USB serial の 3D ビューア
@@ -151,13 +151,13 @@ python imu_platform2_usbserial_test.py --port /dev/ttyACM0
 #### Windows 11
 
 ```bash
-python imu_platform2_usbserial_cube_viewer.py --port COM3
+python imu2_usbserial_cube_viewer.py --port COM3
 ```
 
 #### Jetson USB virtual COM
 
 ```bash
-python imu_platform2_usbserial_cube_viewer.py --port /dev/ttyACM0
+python imu2_usbserial_cube_viewer.py --port /dev/ttyACM0
 ```
 
 ## よく使うオプション
