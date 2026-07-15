@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""Shared motion/settings payloads reused by CAN FD and USB serial variants."""
+"""Shared motion/settings payloads for the CAN FD and USB serial tools."""
 
 import dataclasses
 import struct

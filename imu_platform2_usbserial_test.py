@@ -5,13 +5,13 @@ import signal
 import sys
 from typing import Optional
 
-from imu_platform2_frames import (
+from imu_platform2.frames import (
     MotionFrame,
     SettingsFrame,
     format_motion_frame,
     format_settings_frame,
 )
-from imu_platform2_serial import (
+from imu_platform2.serial import (
     CMD_GET_SETTINGS,
     CMD_START_PERIODIC,
     CMD_STOP_PERIODIC,

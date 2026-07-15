@@ -8,7 +8,7 @@ from typing import Optional
 
 import can
 
-from imu_platform2_canfd import (
+from imu_platform2.canfd import (
     CMD_GET_SETTINGS,
     CMD_START_PERIODIC,
     CMD_STOP_PERIODIC,
@@ -27,7 +27,7 @@ from imu_platform2_canfd import (
     print_unknown_frame,
     run_ip_link,
 )
-from imu_platform2_frames import (
+from imu_platform2.frames import (
     MotionFrame,
     SettingsFrame,
     format_motion_frame,

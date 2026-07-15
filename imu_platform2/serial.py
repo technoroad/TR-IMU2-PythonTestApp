@@ -9,7 +9,7 @@ import sys
 import time
 from typing import Callable, Optional
 
-from imu_platform2_frames import (
+from .frames import (
     MOTION_STRUCT,
     SETTINGS_STRUCT,
     MotionFrame,

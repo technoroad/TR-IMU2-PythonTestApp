@@ -11,7 +11,7 @@ from typing import Callable, Optional
 
 import can
 
-from imu_platform2_frames import (
+from .frames import (
     MOTION_STRUCT,
     SETTINGS_STRUCT,
     MotionFrame,

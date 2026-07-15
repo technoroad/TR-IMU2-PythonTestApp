@@ -6,7 +6,7 @@ import math
 import sys
 from typing import Callable, Optional
 
-from imu_platform2_frames import MotionFrame
+from .frames import MotionFrame
 
 try:
     import tkinter as tk
