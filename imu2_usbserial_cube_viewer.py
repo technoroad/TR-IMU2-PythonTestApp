@@ -6,8 +6,8 @@ import sys
 import threading
 from typing import Optional
 
-from imu_platform2.frames import MotionFrame, format_settings_frame
-from imu_platform2.serial import (
+from tr_imu2.frames import MotionFrame, format_settings_frame
+from tr_imu2.serial import (
     CMD_GET_SETTINGS,
     CMD_RESET_FILTER,
     CMD_START_PERIODIC,
@@ -24,7 +24,7 @@ from imu_platform2.serial import (
     parse_settings_packet,
     serial,
 )
-from imu_platform2.viewer import CubeViewer, TK_IMPORT_ERROR, tk
+from tr_imu2.viewer import CubeViewer, TK_IMPORT_ERROR, tk
 
 
 def parse_args() -> argparse.Namespace:

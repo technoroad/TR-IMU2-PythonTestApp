@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""CAN FD transport/protocol helpers for the IMU Platform2 tools."""
+"""CAN FD transport/protocol helpers for the TR-IMU2 tools."""
 
 import argparse
 import os

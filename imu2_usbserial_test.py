@@ -5,13 +5,13 @@ import signal
 import sys
 from typing import Optional
 
-from imu_platform2.frames import (
+from tr_imu2.frames import (
     MotionFrame,
     SettingsFrame,
     format_motion_frame,
     format_settings_frame,
 )
-from imu_platform2.serial import (
+from tr_imu2.serial import (
     CMD_GET_SETTINGS,
     CMD_START_PERIODIC,
     CMD_STOP_PERIODIC,
@@ -33,7 +33,7 @@ from imu_platform2.serial import (
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="IMU_Platform2 USB serial test app."
+        description="TR-IMU2 USB serial test app."
     )
     add_serial_common_arguments(parser)
     parser.add_argument(

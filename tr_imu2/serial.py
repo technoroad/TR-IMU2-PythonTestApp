@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""USB virtual COM serial helpers for the IMU Platform2 tools."""
+"""USB virtual COM serial helpers for the TR-IMU2 tools."""
 
 import argparse
 import dataclasses

@@ -8,7 +8,7 @@ from typing import Optional
 
 import can
 
-from imu_platform2.canfd import (
+from tr_imu2.canfd import (
     CMD_GET_SETTINGS,
     CMD_START_PERIODIC,
     CMD_STOP_PERIODIC,
@@ -27,7 +27,7 @@ from imu_platform2.canfd import (
     print_unknown_frame,
     run_ip_link,
 )
-from imu_platform2.frames import (
+from tr_imu2.frames import (
     MotionFrame,
     SettingsFrame,
     format_motion_frame,
@@ -37,7 +37,7 @@ from imu_platform2.frames import (
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="IMU_Platform2 CAN FD test app for Jetson Orin Nano."
+        description="TR-IMU2 CAN FD test app for Jetson Orin Nano."
     )
     add_canfd_common_arguments(parser)
     parser.add_argument(
